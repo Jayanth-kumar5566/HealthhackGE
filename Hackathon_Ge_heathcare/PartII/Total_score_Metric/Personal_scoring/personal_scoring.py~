@@ -1,0 +1,23 @@
+
+# coding: utf-8
+
+# # This code predicts weather a person is likely to have diabetes or not based on his features
+
+# ### Importing libraries
+
+# In[29]:
+
+import numpy as np
+import pandas 
+import matplotlib.pyplot as plt
+from sklearn import preprocessing
+
+# In[40]:
+
+df=pd.read_csv("to_calc_ps.csv")
+columns=df.columns
+#-------------Normalizing the data--------------
+df=preprocessing.scale(df)
+df=pandas.DataFrame(df,columns=columns)
+df['Personal_Score']=df.mean(axis=1)
+df.to_csv("ps.csv")
