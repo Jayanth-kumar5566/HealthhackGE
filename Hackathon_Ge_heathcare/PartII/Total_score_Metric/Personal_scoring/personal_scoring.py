@@ -34,10 +34,8 @@ nout=pandas.DataFrame()
 visit=raw_input("Which visit is it? ")
 nout[str(visit)]=ddf.mean(axis=1)
 nout["PATNO"]=ddf.index
-#--------------To Sort out------------------------
-x=pandas.merge(out,nout,on=["PATNO"],how="outer")
-#---------------------------------------------
-x=x.set_index("PATNO")
-#x.groupby("PATNO")
-out.to_csv("../Drug_prediction/drug_input.csv")
+out=out.set_index("PATNO")
+nout=nout.set_index("PATNO")
+out.to_csv("to_merge1.csv")
+nout.to_csv("to_merge2.csv")
 print "Done created personal scoring"

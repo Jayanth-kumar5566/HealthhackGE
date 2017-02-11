@@ -22,6 +22,7 @@ df1.to_csv("prog_data.csv")
 
 #-------------------------On Testing dataset--------------------
 ddf=pandas.read_csv("drug_input.csv")
+del ddf["Unnamed: 0"]
 Y=ddf["PATNO"]
 del ddf["PATNO"]
 X=ddf

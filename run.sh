@@ -9,6 +9,7 @@ echo "Change Directory into PartII open the file treatments1.csv to know the pre
 cd Total_score_Metric
 cd Personal_scoring
 python personal_scoring.py
+RScript merging.R
 echo "Note: If there are any missing values in the stage1_input.csv, then use the Imputer with mean.ipynb to impute the values"
 cd ..
 cd Drug_prediction
