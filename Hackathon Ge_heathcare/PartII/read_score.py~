@@ -1,0 +1,15 @@
+import pandas
+#---------Getting scores from the R file---------------
+df=pandas.read_csv("../scores.csv")
+del df["Unnamed: 0"]
+del df["V1"]
+scores=df.max(axis=1)
+scores=scores.to_frame()
+#--------Appending the Patient names---------------
+df1=pandas.read_csv("stage1_input.csv")
+pre_index=df1.columns.tolist()
+pre_index.remove("PATNO")
+scores["PATNO"]=pre_index
+scores=scores.set_index("PATNO")
+print scores
+
