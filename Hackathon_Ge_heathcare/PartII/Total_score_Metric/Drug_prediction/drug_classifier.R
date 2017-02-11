@@ -5,22 +5,15 @@ filename <- "data.csv"
 data <- read.csv("prog_data.csv")
 label<-read.csv("labels.csv")
 prediction<-read.csv("prog_data_pred.csv")
-names<-strsplit(colnames(prediction),",")
-#------------------------Transposing the Columns---------------------------
-# first remember the names
-n <- prediction$PATNO
-# transpose all but the first column (name)
-prediction <- as.data.frame(t(prediction[,-1]))
-colnames(prediction) <- n
-prediction$myfactor <- factor(row.names(prediction))
-prediction<-prediction[1:123]
-prediction<-as.matrix(prediction)
+names<-prediction$PATNO
 #---------------------------------------------------------------------------
 data<-data.table(sapply(data,as.numeric))
 data$PATNO <- NULL
+prediction$PATNO<-NULL
 label<-data.table(sapply(label,as.numeric))
 data<-as.matrix(data)
 label<-as.matrix(label)
+prediction<-as.matrix(prediction)
 set.seed(42)
 n<-dim(data)[1]
 trind<-sample(1:n,floor(.7*n),FALSE)
@@ -43,11 +36,6 @@ predictedlab <- list()
 for (i in 1:x){predictedlab <- c(predictedlab,which(predsmat[i,]==max(predsmat[i,]))-1)}
 print("Confusion Matrix for the Testing Set")
 table(unlist(predictedlab),tlabel)
-#-------------------Variable importance plot----------------------------------
-print("Saving variable Importance Plot")
-importance_matrix<-xgb.importance(colnames(data),model=bst,data=data,label=label)
-library("Ckmeans.1d.dp", lib.loc="/home/jhome/R/x86_64-pc-linux-gnu-library/3.1")
-xgb.plot.importance(importance_matrix[1:45])
 #----------------Prediction from the table------------------------------------
 n_preds <- predict(bst,prediction,missing=NA)
 n_predsmat <- matrix(n_preds,dim(prediction)[1],max(test_label)+1, byrow = T) 
@@ -55,6 +43,6 @@ n_predictedlab <- list()
 write.csv(n_predsmat,file="predictions.csv")
 for (i in 1:dim(prediction)[1]){n_predictedlab <- c(n_predictedlab,which(n_predsmat[i,]==max(n_predsmat[i,]))-1)}
 print("Prediction of the Patient")
-names(n_predictedlab)<-names[-1]
+names(n_predictedlab)<-names
 print(n_predictedlab)
 
