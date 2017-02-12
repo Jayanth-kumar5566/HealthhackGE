@@ -6,7 +6,8 @@ cd Hackathon_Ge_heathcare
 echo "Hey Doc !! open stage1_input.csv and add the attributes of the subject(if there are any missing values leave them blank)"
 echo
 echo
-echo"Running XgBoost(Boosted Decision tree on the entered values)"
+echo "Running XgBoost boosted decision tree"
+
 Rscript 4wayclassifiation.R
 cd PartII
 echo

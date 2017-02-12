@@ -5,6 +5,7 @@ filename <- "data.csv"
 data <- read.csv("data.csv")
 label<-read.csv("label.csv")
 prediction<-read.csv("stage1_input.csv")
+x<-dim(prediction)[1]
 names<-strsplit(colnames(prediction),",")
 #------------------------Transposing the Columns---------------------------
 # first remember the names
@@ -13,7 +14,7 @@ n <- prediction$PATNO
 prediction <- as.data.frame(t(prediction[,-1]))
 colnames(prediction) <- n
 prediction$myfactor <- factor(row.names(prediction))
-prediction<-prediction[1:123]
+prediction<-prediction[1:x]
 prediction<-as.matrix(prediction)
 #---------------------------------------------------------------------------
 data<-data.table(sapply(data,as.numeric))
@@ -31,13 +32,13 @@ label=label[trind,]
 #----------------------Training the Classifier-------------------------------
 bst <- xgboost(data = data,label =label,eta =0.5,max.depth = 7, nround = 15,objective = "multi:softprob", num_class =max(label,na.rm=TRUE)+1 ,nthread = 3, verbose = 1,missing=NA)
 # we input data as our testing set
+saveRDS(bst,"model_v1.rds")
 test_data=tdata
 test_label=tlabel
 x=dim(test_data)[1]
 preds <- predict(bst,test_data,missing=NA) # returns probabilities of each label
 # needs to find max probability label for each dataline
 predsmat <- matrix(preds,x,max(test_label)+1, byrow = T)
-
 predictedlab <- list()
 for (i in 1:x){predictedlab <- c(predictedlab,which(predsmat[i,]==max(predsmat[i,]))-1)}
 print("Confusion Matrix for the Testing Set")

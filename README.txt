@@ -52,6 +52,13 @@ If there are any tests for which the results is not known, leave that entry blan
 The other two csv files ("data.csv","label.csv") are the ones used
 for the training and testing of the algorithm.
 
+3) Getback to the previous directory
+
+4) Run the shell script using
+
+        "chmod +x run.sh"
+        "./run.sh"
+
 =====================Interpretation===========================
 StageI output: 
 
@@ -63,15 +70,27 @@ This should print out an integer between 0 and 4 for each patient
          	3 -----------> Swedd
          	4 -----------> Prodormal
 
-Treatment:
+Predicting/Classifying the Subjects:
           
-          The algrithm will classify each class into 3 classes
+          The algorithm will classify each class into 3 classes
           			
           			a) Give Levadopa Drug
           			b) Needs Imaging Analysis
           			c) Healthy
   The file of the results can be found in "./HealthhackGE/Hackathon_Ge_heathcare/PartII/treatments1.csv" 
+  
+==========================Note=================================
+   If the code asks for
+         "Do you wish to change the prediction?"
+   If the user feels that the code is predicting wrong
+   he/she should type in "yes", followed by 
+   answering the posed questions
+  
+   This will retrain the model based on this
+   new correction and make the model better
    
+   Or you could type in "no" to continue further
+===============================================================   
 DRUG output:
              
             1 -----------> Try a new drug
