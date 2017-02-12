@@ -30,6 +30,10 @@ print scores
 scores.to_csv("treatments1.csv")
 #--------Adding the new subjects data to the patient------------
 old=pandas.read_csv("../data.csv")
+try:
+	del old["Unnamed: 0"]
+except:
+	pass
 old_label=open("../label.csv",'a')
 #ps_score=pandas.read_csv("Total_score_Metric/Personal_scoring/to_calc_ps.csv")
 a=raw_input("Do you wish to change the prediction? ")
@@ -39,7 +43,7 @@ if a=="yes":
     new_df=df1[["PATNO",pat]]
     new_df=new_df.set_index("PATNO")
     new_df=new_df.transpose()
-    old=old.append(new_df)
+    old=old.append(new_df)[old.columns.tolist()]
     #ps_score=ps_score.append(new_df)
     #ps_score.to_csv("Total_score_Metric/Personal_scoring/to_calc_ps.csv")
     old.to_csv("../data.csv")

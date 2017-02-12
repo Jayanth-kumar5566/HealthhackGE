@@ -15,6 +15,10 @@ from sklearn import preprocessing
 # In[40]:
 #Input in data because we use average and standard deviation of the population to normalize the values
 df=pandas.read_csv("data.csv")
+try:
+	del df["Unnamed: 0"]
+except:
+	pass
 df=df.set_index("PATNO")
 #index=df.index
 #columns=df.columns
@@ -23,13 +27,13 @@ ddf=ddf.set_index("PATNO")
 ddf=ddf.transpose()
 out=pandas.read_csv("../Drug_prediction/drug_input.csv")
 #-------------Normalizing the data--------------
-ddf=(ddf-df.mean())/df.var()
 inp=raw_input("Would you like to add the patients to training set? ")
 if inp=="yes":
     df=df.append(ddf)
     df.to_csv("data.csv")
 else:
     pass
+ddf=(ddf-df.mean())/df.var()
 nout=pandas.DataFrame()
 visit=raw_input("Which visit is it? ")
 nout[str(visit)]=ddf.mean(axis=1)

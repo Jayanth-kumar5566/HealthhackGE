@@ -42,7 +42,7 @@ n_predsmat <- matrix(n_preds,dim(prediction)[1],max(test_label)+1, byrow = T)
 n_predictedlab <- list()
 write.csv(n_predsmat,file="predictions.csv")
 for (i in 1:dim(prediction)[1]){n_predictedlab <- c(n_predictedlab,which(n_predsmat[i,]==max(n_predsmat[i,]))-1)}
-print("Prediction of the Patient")
+print("Predicting the DRUG of the patient")
 names(n_predictedlab)<-names
 print(n_predictedlab)
 

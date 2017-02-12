@@ -3,6 +3,10 @@ from sklearn import linear_model
 import matplotlib.pyplot as plt
 from scipy import stats
 df=pandas.read_csv("data.csv")
+try:
+	del df["Unnamed: 0"]
+except:
+	pass
 Y=df["PATNO"]
 del df["PATNO"]
 X=df
@@ -29,7 +33,10 @@ df1.to_csv("prog_data.csv")
 
 #-------------------------On Testing dataset--------------------
 ddf=pandas.read_csv("drug_input.csv")
-del ddf["Unnamed: 0"]
+try:
+	del ddf["Unnamed: 0"]
+except:
+	pass
 Y=ddf["PATNO"]
 del ddf["PATNO"]
 X=ddf

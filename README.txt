@@ -91,7 +91,11 @@ Predicting/Classifying the Subjects:
    
    Or you could type in "no" to continue further
 ===============================================================   
-DRUG output:
+If the code asks "Which visit is it?"
+Do type in the visit number as "Visit1" or "Visit2"
+
+
+Predicting the Drug of the patient:
              
             1 -----------> Try a new drug
          	2 -----------> Reduce the Dosage of Levadopa
