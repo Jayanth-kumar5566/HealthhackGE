@@ -46,22 +46,14 @@ This will create a folder named "Hackathon Ge_healthcare" in the directory
 from which the command was executed.
 
 
-2)Navigate to the directory "Stage1". This will be used to classify patients into 
-PD, healthy, SWEDD or prodromal). This directory contains one R script and three csv
-files. The user has to enter the test results for tests mentioned in the 
+2)Navigate to the directory "Hackathon_Ge_healthcare". The user has to enter the test results for tests mentioned in the 
 "stage1_input.csv" of the patient in the "stage1_input.csv" and save the file. 
 If there are any tests for which the results is not known, leave that entry blank.
-An example data of a test patient is filled in the file 
-(which should be deleted when entering patient data). 
 The other two csv files ("data.csv","label.csv") are the ones used
-for the training and testing of the algorithm . It is important 
-NOT to change "data.csv" and "label.csv" unless you know what you are doing.
+for the training and testing of the algorithm.
 
-
-3)To run the R script. On Linux-based systems, open a terminal
-and navigate to the directory "Stage1" and type the following command: 
-
-		"RScript 4wayclassification.R"
+=====================Interpretation===========================
+StageI output: 
 
 This should print out an integer between 0 and 4 for each patient
  filled in the "stage1_input.csv" which is to be interpreted as follows:
@@ -70,35 +62,24 @@ This should print out an integer between 0 and 4 for each patient
          	2 -----------> Healthy Control
          	3 -----------> Swedd
          	4 -----------> Prodormal
-         
-   
-   
-4)To predict the progression of a PD patient, navigate to the
-directory "Stage2". 
 
-Note: If the user "knows" a patient is PD then they can ignore Stage1 
-and directly proceed to Stage2. 
-
-This directory contains 1 Rscript and 2 csv files, the user has to
-enter the baseline test results of the patient for tests
-mentioned in the "stage2_input.csv" in the "stage2_input.csv"
-and save the file. If there are any missing values, leave the
-entry blank. An example data of a test patient is already filled
-in the file. "lastfile_smoted_numerical.csv" is the file on
-which the classifier is trained and tested. 
-Do NOT change lastfile_smoted_numerical.csv unless absolutely necessary.
+Treatment:
           
+          The algrithm will classify each class into 3 classes
+          			
+          			a) Give Levadopa Drug
+          			b) Needs Imaging Analysis
+          			c) Healthy
+  The file of the results can be found in "./HealthhackGE/Hackathon_Ge_heathcare/PartII/treatments1.csv" 
+   
+DRUG output:
+             
+            1 -----------> Try a new drug
+         	2 -----------> Reduce the Dosage of Levadopa
+         	3 -----------> Keep the same medications
+         	4 -----------> Increase the Dosage
+             
 
-5)To run the Rscript, On Linux based system, open terminal and navigate to
-the directory "Stage2" and type the following command: 
-
-		"RScript xgboost.R" 
-		
-This should print out an integer between 1 and 3 for each patient
-filled in the "stage2_input.csv", which is interpreted as follows:       
-       	
-       	1 --------> TAP1 Low progression rate relative to the population mean 
-       	2 --------> TAP2 An average progression rate 
-       	3 --------> TAP3 High progression rate relative to the population mean
+   
 
 

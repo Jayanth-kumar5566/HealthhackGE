@@ -30,10 +30,11 @@ echo
 echo
 echo "Using Ordinary Least Square Regression to quantify the patient progression and prediction of drug"
 python regression.py
+Rscript merge_dynam.R
 Rscript drug_classifier.R
 echo
 echo
-echo "To do:If you get 15 Visits of a single patient then copy paste the patient from drug_input.csv to data.csv"
+python dynamicity_drug.py
 echo 
 echo
 echo "Thank you, #Clinicians&code"
