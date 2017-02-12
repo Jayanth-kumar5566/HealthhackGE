@@ -9,15 +9,22 @@ X=df
 x=range(X.shape[1])
 m=[]
 x_0=[]
+p1_eff=[]
+p2_eff=[]
 #-Uses Linear Regression along with least squares(On training dataset)--------
 for i in range(X.shape[0]):
     val=X.iloc[i].tolist()
     slope, intercept, r_value, p_value, std_err = stats.linregress(x,val)
     m.append(slope)
     x_0.append(intercept)
+    p2_eff.append(val[-2])
+    p1_eff.append(val[-1])
 df1=pandas.DataFrame(index=Y)
 df1["Intercept"]=x_0
 df1["Progression"]=m
+df1["Penaltimate Visit"]=p2_eff
+df1["This time Visit"]=p1_eff
+df1["Diff"]=df1["This time Visit"]-df1["Penaltimate Visit"]
 df1.to_csv("prog_data.csv")
 
 #-------------------------On Testing dataset--------------------
@@ -29,14 +36,25 @@ X=ddf
 x=range(X.shape[1])
 m=[]
 x_0=[]
+p1_eff=[]
+p2_eff=[]
 #-----OLS Regression-------------------------------------
 for i in range(X.shape[0]):
     val=X.iloc[i].tolist()
     slope, intercept, r_value, p_value, std_err = stats.linregress(x,val)
     m.append(slope)
     x_0.append(intercept)
+    p2_eff.append(val[-2])
+    p1_eff.append(val[-1])
 ddf1=pandas.DataFrame(index=Y)
 ddf1["Intercept"]=x_0
 ddf1["Progression"]=m
+if len(val)>=2:
+    ddf1["Penaltimate Visit"]=p2_eff
+    ddf1["This time Visit"]=p1_eff
+    ddf1["Diff"]=ddf1["This time Visit"]-ddf1["Penaltimate Visit"]
+else:
+    print "Number of Visits less than 2"
+    pass
 ddf1.to_csv("prog_data_pred.csv")
 
