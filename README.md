@@ -9,3 +9,5 @@ chmod +x run.sh
 
 
 ./run.sh
+
+## For more details on working please read readme.txt
